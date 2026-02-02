@@ -24,12 +24,27 @@
     </div>
 
     <div class="shop-controls">
-      <select class="shop-controls__select" aria-label="Sort products">
+      <form method="get">
+        <select
+          name="sort"
+          class="shop-controls__select"
+          onchange="this.form.submit()"
+        >
         <option value="">Sort by</option>
-        <option value="name">Name — A to Z</option>
-        <option value="price-asc">Price — Low to High</option>
-        <option value="price-desc">Price — High to Low</option>
+        <option value="name" {% if request.GET.sort == "name" %}selected{% endif %}>
+        Name — A to Z
+        </option>
+
+        <option value="price-asc" {% if request.GET.sort == "price-asc" %}selected{% endif %}>
+        Price — Low to High
+        </option>
+
+        <option value="price-desc" {% if request.GET.sort == "price-desc" %}selected{% endif %}>
+        Price — High to Low
+        </option>
+        
       </select>
+      </form>
     </div>
 
   </header>

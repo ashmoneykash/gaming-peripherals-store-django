@@ -2,6 +2,14 @@ from django.shortcuts import render, redirect
 from .models import User
 from adminapp.models import Order
 
+IMAGE_MAP = {
+    'mousepad': 'products/mousepad.png',
+    'keyboard': 'products/keyboard.png',
+    'headset': 'products/headset.png',
+    'controller': 'products/controller.png',
+    'mouse': 'products/mouse.png',
+}
+
 def register(request):
     if request.method == 'POST':
         User.objects.create(
@@ -33,21 +41,25 @@ from adminapp.models import Product
 def products(request):
     items = Product.objects.all()
 
+    # ── Sorting (ALWAYS before looping)
+    sort = request.GET.get('sort')
+
+    if sort == 'name':
+        items = items.order_by('name')
+    elif sort == 'price-asc':
+        items = items.order_by('price')
+    elif sort == 'price-desc':
+        items = items.order_by('-price')
+
+    # ── Attach image paths (presentation logic only)
     for item in items:
         name = item.name.lower()
+        item.image_path = 'products/keyboard.png'  # default fallback
 
-        if 'mousepad' in name:
-            item.image_path = 'products/mousepad.png'
-        elif 'keyboard' in name:
-            item.image_path = 'products/keyboard.png'
-        elif 'headset' in name:
-            item.image_path = 'products/headset.png'
-        elif 'controller' in name:
-            item.image_path = 'products/controller.png'
-        elif 'mouse' in name:
-            item.image_path = 'products/mouse.png'
-        else:
-            item.image_path = 'products/keyboard.png'
+        for keyword, path in IMAGE_MAP.items():
+            if keyword in name:
+                item.image_path = path
+                break
 
     return render(request, 'users/products.html', {'items': items})
 
