@@ -1,0 +1,77 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<section class="hero-premium">
+  <div class="hero-premium__ambient-layer">
+    <div class="ambient-orb ambient-orb--1"></div>
+    <div class="ambient-orb ambient-orb--2"></div>
+    <div class="ambient-orb ambient-orb--3"></div>
+  </div>
+
+  <div class="hero-premium__grid">
+    <div class="hero-premium__content">
+      <div class="eyebrow">
+        <span class="eyebrow__line"></span>
+        <span class="eyebrow__text">Elite Gaming Arsenal</span>
+      </div>
+      
+      <h1 class="hero-premium__title">
+        <span class="hero-premium__title-line">Precision</span>
+        <span class="hero-premium__title-line hero-premium__title-line--accent">Engineered</span>
+        <span class="hero-premium__title-line">to Win</span>
+        </h1>
+
+      <p class="hero-premium__subtitle">
+        Tournament-grade peripherals designed for players who refuse to compromise. 
+        Millisecond response times. Zero input lag. Pure dominance.
+      </p>
+
+      <div class="hero-premium__actions">
+        <a href="/products" class="btn-premium btn-premium--primary">
+          <span class="btn-premium__text">Explore Collection</span>
+          <span class="btn-premium__arrow">→</span>
+        </a>
+        <a href="#" class="btn-premium btn-premium--ghost">
+          <span class="btn-premium__text">View Specs</span>
+        </a>
+      </div>
+
+      <div class="hero-premium__stats">
+        <div class="stat-pill">
+          <div class="stat-pill__value">0.2ms</div>
+          <div class="stat-pill__label">Response Time</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill__value">8000Hz</div>
+          <div class="stat-pill__label">Polling Rate</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill__value">Pro</div>
+          <div class="stat-pill__label">Certified</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-premium__visual">
+      <div class="product-showcase">
+        <div class="product-showcase__glow"></div>
+        <div class="product-showcase__frame">
+          <img
+            src="{% static 'hero-gear.png' %}"
+            alt="Gaming Controller"
+            class="hero-product-img">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-premium__scroll-indicator">
+    <div class="scroll-indicator">
+      <span class="scroll-indicator__text">Scroll to explore</span>
+      <span class="scroll-indicator__icon"></span>
+    </div>
+  </div>
+</section>
+{% endblock %}

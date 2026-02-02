@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="shop-page">
+
+  <!-- ── Header ── -->
+  <header class="shop-header">
+
+    <div class="shop-header__left">
+      <span class="shop-header__eyebrow">Collection</span>
+      <h1 class="shop-header__title">Products</h1>
+      <div class="shop-header__divider"></div>
+      <span class="shop-header__count">
+        {% if items %}
+          {{ items|length }} item{{ items|length|pluralize }} available
+        {% endif %}
+      </span>
+    </div>
+
+    <div class="shop-controls">
+      <select class="shop-controls__select" aria-label="Sort products">
+        <option value="">Sort by</option>
+        <option value="name">Name — A to Z</option>
+        <option value="price-asc">Price — Low to High</option>
+        <option value="price-desc">Price — High to Low</option>
+      </select>
+    </div>
+
+  </header>
+
+
+  <!-- ── Product Grid ── -->
+  {% if items %}
+
+  <div class="shop-grid">
+
+    {% for item in items %}
+    <article class="product-card">
+
+      <!-- Image + Stock Badge -->
+      <div class="product-card__image-wrap">
+
+        <img
+          src="{% static item.image_path %}"
+          alt="{{ item.name }}"
+          class="product-card__image"
+          loading="lazy"
+        />
+
+        <!-- Stock Badge: three states -->
+        {% if item.stock == 0 %}
+
+          <span class="product-card__stock-badge product-card__stock-badge--out">
+            <span class="product-card__stock-dot"></span>
+            Out of Stock
+          </span>
+
+        {% elif item.stock <= 3 %}
+
+          <span class="product-card__stock-badge product-card__stock-badge--low">
+            <span class="product-card__stock-dot"></span>
+            Only {{ item.stock }} left
+          </span>
+
+        {% else %}
+
+          <span class="product-card__stock-badge product-card__stock-badge--ok">
+            <span class="product-card__stock-dot"></span>
+            In Stock
+          </span>
+
+        {% endif %}
+      </div>
+
+      <!-- Body: meta → name → price + CTA -->
+      <div class="product-card__body">
+
+        <span class="product-card__meta">Gaming Peripheral</span>
+        <h2 class="product-card__name">{{ item.name }}</h2>
+
+        <div class="product-card__footer">
+
+          <!-- Price -->
+          <span class="product-card__price">
+            ${{ item.price|floatformat:0 }}<span class="product-card__price--cents">.00</span>
+          </span>
+
+          <!-- CTA: active or disabled -->
+          {% if item.stock > 0 %}
+            <a href="#" class="btn-add" aria-label="Add {{ item.name }} to cart">
+              Add to Cart
+            </a>
+          {% else %}
+            <span class="btn-add btn-add--disabled" aria-disabled="true">
+              Unavailable
+            </span>
+          {% endif %}
+
+        </div>
+      </div>
+
+    </article>
+    {% endfor %}
+
+  </div>
+
+
+  <!-- ── Empty State (no products) ── -->
+  {% else %}
+
+  <div class="shop-empty">
+
+    <!-- Simple card icon -->
+    <svg class="shop-empty__icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="14" width="36" height="26" rx="3" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M6 22h36" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M16 30h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+
+    <h2 class="shop-empty__title">No Products Yet</h2>
+    <p class="shop-empty__sub">Products will appear here once added to the store.</p>
+
+  </div>
+
+  {% endif %}
+
+</section>
+
+{% endblock %}
