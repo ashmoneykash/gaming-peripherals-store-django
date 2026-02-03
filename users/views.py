@@ -1,6 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .models import User
-from adminapp.models import Order
+from adminapp.models import Order,Product
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as django_login, logout as django_logout
+from .models import UserProfile
 
 IMAGE_MAP = {
     'mousepad': 'products/mousepad.png',
@@ -11,32 +14,56 @@ IMAGE_MAP = {
 }
 
 def register(request):
-    if request.method == 'POST':
-        User.objects.create(
-            name=request.POST['name'],
-            email=request.POST['email'],
-            mobile=request.POST['mobile'],
-            password=request.POST['password'],
-            address=request.POST['address'],
-            pincode=request.POST['pincode']
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        mobile = request.POST.get("mobile")
+        address = request.POST.get("address")
+        pincode = request.POST.get("pincode")
+
+        if User.objects.filter(username=username).exists():
+            return render(request, "users/register.html", {
+                "error": "Username already exists"
+            })
+
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
         )
-        return redirect('/login/')
-    return render(request, 'registration.html')
+
+        UserProfile.objects.create(
+            user=user,
+            mobile=mobile,
+            address=address,
+            pincode=pincode
+        )
+
+        return redirect("login")
+
+    return render(request, "users/register.html")
 
 def login(request):
-    if request.method == 'POST':
-        user = User.objects.filter(
-            email=request.POST['email'],
-            password=request.POST['password']
-        ).first()
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
-        if user:
-            request.session['user_id'] = user.id
-            request.session['user_name'] = user.name
-            return redirect('/home/')
-    return render(request, 'login.html')
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
 
-from adminapp.models import Product
+        if user is not None:
+            django_login(request, user)
+            return redirect("products")
+        else:
+            return render(request, "users/login.html", {
+                "error": "Invalid username or password"
+            })
+
+    return render(request, "users/login.html")
 
 def products(request):
     items = Product.objects.all()
@@ -71,7 +98,11 @@ def place_order(request, pid):
     )
     return redirect('/my-orders/')
 
+@login_required(login_url='/users/login/')
 def my_orders(request):
-    orders = Order.objects.filter(user_id=request.session['user_id'])
-    return render(request, 'my_orders.html', {'orders': orders})
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'users/my_orders.html', {'orders': orders})
 
+def logout(request):
+    django_logout(request)
+    return redirect("home")

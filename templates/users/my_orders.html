@@ -1,0 +1,11 @@
+<h1>My Orders</h1>
+
+{% for order in orders %}
+  <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+    <p>Product ID: {{ order.product_id }}</p>
+    <p>Quantity: {{ order.quantity }}</p>
+    <p>Status: {{ order.status }}</p>
+  </div>
+{% empty %}
+  <p>No orders yet.</p>
+{% endfor %}
