@@ -1,11 +1,111 @@
-<h1>My Orders</h1>
+{% extends "base.html" %}
+{% block title %}My Orders - NexGen{% endblock %}
 
-{% for order in orders %}
-  <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-    <p>Product ID: {{ order.product_id }}</p>
-    <p>Quantity: {{ order.quantity }}</p>
-    <p>Status: {{ order.status }}</p>
+{% block content %}
+<section class="min-h-[calc(100vh-6rem)] px-4 py-12">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Page Header -->
+    <div class="mb-10">
+      <span class="inline-block px-4 py-1.5 bg-primary/10 border border-primary/20 rounded-full text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-4">Order History</span>
+      <h1 class="text-4xl font-bold text-white mb-2">My Orders</h1>
+      <p class="text-zinc-400">Track and manage your gaming gear purchases</p>
+    </div>
+
+    {% if orders %}
+    <!-- Orders List -->
+    <div class="space-y-4">
+      {% for order in orders %}
+      <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300">
+        
+        <!-- Order Header -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4 pb-4 border-b border-white/5">
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <div>
+              <span class="text-xs text-zinc-500 uppercase tracking-wider">Order ID</span>
+              <p class="font-semibold text-white">#{{ order.id }}</p>
+            </div>
+            <div>
+              <span class="text-xs text-zinc-500 uppercase tracking-wider">Date</span>
+              <p class="text-zinc-300">{{ order.created_at|date:"M d, Y" }}</p>
+            </div>
+            <div>
+              <span class="text-xs text-zinc-500 uppercase tracking-wider">Total</span>
+              <p class="text-white font-semibold">${{ order.total_price }}</p>
+            </div>
+          </div>
+          
+          <!-- Status Badge -->
+          <div>
+            {% if order.status == 'delivered' %}
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-success/10 border border-success/30 rounded-full text-xs font-medium text-green-400">
+              <span class="w-1.5 h-1.5 bg-success rounded-full"></span>
+              Delivered
+            </span>
+            {% elif order.status == 'shipped' %}
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-500/10 border border-blue-500/30 rounded-full text-xs font-medium text-blue-400">
+              <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+              Shipped
+            </span>
+            {% elif order.status == 'processing' %}
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-xs font-medium text-yellow-400">
+              <span class="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse"></span>
+              Processing
+            </span>
+            {% else %}
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-500/10 border border-zinc-500/30 rounded-full text-xs font-medium text-zinc-400">
+              <span class="w-1.5 h-1.5 bg-zinc-500 rounded-full"></span>
+              {{ order.status|title }}
+            </span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="space-y-3">
+          {% for item in order.items.all %}
+          <div class="flex items-center gap-4">
+            {% if item.product.image %}
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-16 h-16 object-cover rounded-lg bg-surface-light">
+            {% else %}
+            <div class="w-16 h-16 bg-surface-light rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+              </svg>
+            </div>
+            {% endif %}
+            <div class="flex-1 min-w-0">
+              <p class="font-medium text-white truncate">{{ item.product.name }}</p>
+              <p class="text-sm text-zinc-500">Qty: {{ item.quantity }}</p>
+            </div>
+            <p class="text-zinc-300 font-medium">${{ item.price }}</p>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <!-- Empty State -->
+    <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-12 text-center">
+      <div class="w-20 h-20 mx-auto mb-6 bg-surface-light rounded-2xl flex items-center justify-center">
+        <svg class="w-10 h-10 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-semibold text-white mb-2">No orders yet</h3>
+      <p class="text-zinc-400 mb-6 max-w-sm mx-auto">You haven't placed any orders yet. Start shopping to get premium gaming gear!</p>
+      <a href="{% url 'products' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-purple-500 hover:from-primary-dark hover:to-purple-600 text-white font-semibold rounded-xl transition-all duration-300 transform hover:-translate-y-0.5">
+        Browse Products
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+    </div>
+    {% endif %}
+
   </div>
-{% empty %}
-  <p>No orders yet.</p>
-{% endfor %}
+</section>
+{% endblock %}

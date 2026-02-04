@@ -1,716 +1,158 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}Contact - NexGen{% endblock %}
 
-{% load static %}
 {% block content %}
-<section class="hero-premium">
-  <div class="hero-premium__ambient-layer">
-    <div class="ambient-orb ambient-orb--1"></div>
-    <div class="ambient-orb ambient-orb--2"></div>
-    <div class="ambient-orb ambient-orb--3"></div>
-  </div>
+<section class="min-h-[calc(100vh-6rem)] px-4 py-12">
+  <div class="max-w-6xl mx-auto">
 
-  <div class="contact-grid">
-    <div class="contact-content">
-      <div class="eyebrow">
-        <span class="eyebrow__line"></span>
-        <span class="eyebrow__text">Elite Support</span>
-      </div>
-      
-      <h1 class="hero-premium__title">
-        <span class="hero-premium__title-line">Connect With</span>
-        <span class="hero-premium__title-line hero-premium__title-line--accent">Our Team</span>
-      </h1>
+    <!-- Page Header -->
+    <div class="text-center mb-12">
+      <span class="inline-block px-4 py-1.5 bg-primary/10 border border-primary/20 rounded-full text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-4">Get In Touch</span>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Contact Us</h1>
+      <p class="text-zinc-400 max-w-xl mx-auto">Have questions about our gaming peripherals? We're here to help you level up your setup.</p>
+    </div>
 
-      <p class="hero-premium__subtitle">
-        Questions about tournament-grade gear? Technical specifications? We're here to ensure you have everything you need to dominate the competition.
-      </p>
+    <div class="grid lg:grid-cols-2 gap-12">
 
-      <div class="contact-form-wrapper">
-        <form method="POST" class="premium-contact-form">
-          {% csrf_token %}
-          
-          <div class="form-row">
-            <div class="form-field">
-              <input 
-                type="text" 
-                name="name" 
-                placeholder="Your Name" 
-                required
-                class="form-input">
-            </div>
-
-            <div class="form-field">
-              <input 
-                type="email" 
-                name="email" 
-                placeholder="Your Email" 
-                required
-                class="form-input">
-            </div>
-          </div>
-
-          <div class="form-field">
-            <input 
-              type="text" 
-              name="subject" 
-              placeholder="Subject" 
-              required
-              class="form-input">
-          </div>
-
-          <div class="form-field">
-            <textarea 
-              name="message" 
-              placeholder="Your Message" 
-              required
-              class="form-input form-textarea"
-              rows="6"></textarea>
-          </div>
-
-          <button type="submit" class="btn-premium btn-premium--primary">
-            <span class="btn-premium__text">Send Message</span>
-            <span class="btn-premium__arrow">→</span>
-          </button>
-        </form>
-
+      <!-- Contact Form -->
+      <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-10">
+        <h2 class="text-xl font-semibold text-white mb-6">Send us a message</h2>
+        
         {% if success %}
-        <div class="success-banner">
-          <div class="success-icon">✓</div>
-          <p>Thanks! Your message has been sent.</p>
+        <div class="mb-6 p-4 bg-success/10 border border-success/30 rounded-lg">
+          <p class="text-sm text-green-400">{{ success }}</p>
         </div>
         {% endif %}
+
+        {% if error %}
+        <div class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+          <p class="text-sm text-red-400">{{ error }}</p>
+        </div>
+        {% endif %}
+
+        <form method="POST" class="space-y-5">
+          {% csrf_token %}
+
+          <!-- Name Field -->
+          <div class="space-y-2">
+            <label for="name" class="block text-sm font-medium text-zinc-300">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="Your name"
+              class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-500 outline-none transition-all duration-200 focus:bg-white/[0.07] focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+            >
+          </div>
+
+          <!-- Email Field -->
+          <div class="space-y-2">
+            <label for="email" class="block text-sm font-medium text-zinc-300">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="your@email.com"
+              class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-500 outline-none transition-all duration-200 focus:bg-white/[0.07] focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+            >
+          </div>
+
+          <!-- Subject Field -->
+          <div class="space-y-2">
+            <label for="subject" class="block text-sm font-medium text-zinc-300">Subject</label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              required
+              placeholder="How can we help?"
+              class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-500 outline-none transition-all duration-200 focus:bg-white/[0.07] focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+            >
+          </div>
+
+          <!-- Message Field -->
+          <div class="space-y-2">
+            <label for="message" class="block text-sm font-medium text-zinc-300">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              placeholder="Tell us more about your inquiry..."
+              class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-500 outline-none transition-all duration-200 focus:bg-white/[0.07] focus:border-primary/50 focus:ring-2 focus:ring-primary/20 resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="w-full py-4 bg-gradient-to-r from-primary to-purple-500 hover:from-primary-dark hover:to-purple-600 text-white font-semibold rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25">
+            Send Message
+          </button>
+        </form>
       </div>
+
+      <!-- Contact Info -->
+      <div class="space-y-6">
+        
+        <!-- Info Cards -->
+        <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 flex items-center justify-center bg-primary/10 border border-primary/20 rounded-xl">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white mb-1">Email</h3>
+              <p class="text-zinc-400 text-sm">support@nexgen.com</p>
+              <p class="text-zinc-400 text-sm">sales@nexgen.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 flex items-center justify-center bg-primary/10 border border-primary/20 rounded-xl">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white mb-1">Location</h3>
+              <p class="text-zinc-400 text-sm">123 Gaming Street</p>
+              <p class="text-zinc-400 text-sm">Tech City, TC 10001</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 flex items-center justify-center bg-primary/10 border border-primary/20 rounded-xl">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white mb-1">Business Hours</h3>
+              <p class="text-zinc-400 text-sm">Monday - Friday: 9AM - 6PM</p>
+              <p class="text-zinc-400 text-sm">Saturday: 10AM - 4PM</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Response Time Notice -->
+        <div class="bg-surface-light/50 border border-white/5 rounded-xl p-4">
+          <p class="text-sm text-zinc-500 text-center">
+            We typically respond within 24 hours
+          </p>
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="contact-visual">
-      <div class="info-display">
-        <div class="info-block">
-          <div class="info-block__visual">
-            <div class="geometric-shape geometric-shape--1"></div>
-            <div class="geometric-shape geometric-shape--2"></div>
-          </div>
-          <div class="info-block__content">
-            <h3 class="info-title">Response Time</h3>
-            <p class="info-metric">Under 2 Hours</p>
-            <p class="info-detail">Average reply time for all inquiries during business hours</p>
-          </div>
-        </div>
-
-        <div class="info-block">
-          <div class="info-block__visual">
-            <div class="geometric-shape geometric-shape--3"></div>
-            <div class="geometric-shape geometric-shape--4"></div>
-          </div>
-          <div class="info-block__content">
-            <h3 class="info-title">Availability</h3>
-            <p class="info-metric">24/7 Support</p>
-            <p class="info-detail">Round-the-clock assistance for critical technical issues</p>
-          </div>
-        </div>
-
-        <div class="info-block">
-          <div class="info-block__visual">
-            <div class="geometric-shape geometric-shape--5"></div>
-            <div class="geometric-shape geometric-shape--6"></div>
-          </div>
-          <div class="info-block__content">
-            <h3 class="info-title">Expertise</h3>
-            <p class="info-metric">Pro Gaming</p>
-            <p class="info-detail">Specialists with tournament-level product knowledge</p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
-
-<style>
-/* Contact Page Styling - Matches Home Page */
-.hero-premium {
-  position: relative;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
-  padding: 100px 20px 60px;
-  overflow: hidden;
-}
-
-.hero-premium__ambient-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.ambient-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.25;
-  animation: float 20s ease-in-out infinite;
-}
-
-.ambient-orb--1 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, #6366f1 0%, transparent 70%);
-  top: -15%;
-  left: -10%;
-  animation-delay: 0s;
-}
-
-.ambient-orb--2 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
-  top: 50%;
-  right: -10%;
-  animation-delay: -7s;
-}
-
-.ambient-orb--3 {
-  width: 550px;
-  height: 550px;
-  background: radial-gradient(circle, #ec4899 0%, transparent 70%);
-  bottom: -15%;
-  left: 40%;
-  animation-delay: -14s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(40px, -40px) scale(1.1); }
-  50% { transform: translate(-30px, 30px) scale(0.9); }
-  75% { transform: translate(30px, 40px) scale(1.05); }
-}
-
-.contact-grid {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 80px;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
-.contact-content {
-  animation: fadeInUp 0.8s ease-out;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding: 8px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.eyebrow__line {
-  width: 24px;
-  height: 2px;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  border-radius: 2px;
-}
-
-.eyebrow__text {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-premium__title {
-  margin: 0 0 32px;
-  line-height: 1;
-}
-
-.hero-premium__title-line {
-  display: block;
-  font-size: clamp(3rem, 7vw, 5rem);
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-
-.hero-premium__title-line--accent {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-premium__subtitle {
-  font-size: 1.125rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 48px;
-  max-width: 600px;
-}
-
-/* Form Styling */
-.contact-form-wrapper {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-form-wrapper::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
-  border-radius: 20px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.contact-form-wrapper:hover::before {
-  opacity: 1;
-}
-
-.premium-contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-input {
-  width: 100%;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  color: #ffffff;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: all 0.3s ease;
-  outline: none;
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 140px;
-  font-family: inherit;
-}
-
-.form-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.form-input:focus {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-/* Button Styling */
-.btn-premium {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 18px 36px;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  border: none;
-  font-family: inherit;
-  margin-top: 8px;
-}
-
-.btn-premium--primary {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: #ffffff;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
-}
-
-.btn-premium--primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.btn-premium--primary:hover::before {
-  left: 100%;
-}
-
-.btn-premium--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-}
-
-.btn-premium__arrow {
-  font-size: 1.25rem;
-  transition: transform 0.3s ease;
-}
-
-.btn-premium:hover .btn-premium__arrow {
-  transform: translateX(4px);
-}
-
-/* Success Banner */
-.success-banner {
-  margin-top: 24px;
-  padding: 16px 20px;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  animation: slideIn 0.4s ease-out;
-}
-
-.success-icon {
-  width: 28px;
-  height: 28px;
-  background: linear-gradient(135deg, #10b981, #34d399);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-
-.success-banner p {
-  margin: 0;
-  color: #10b981;
-  font-weight: 500;
-}
-
-/* Contact Visual - Info Display */
-.contact-visual {
-  animation: fadeInUp 0.8s ease-out 0.2s backwards;
-}
-
-.info-display {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.info-block {
-  position: relative;
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-}
-
-.info-block__visual {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.geometric-shape {
-  position: absolute;
-  border-radius: 4px;
-  animation: rotateShape 8s ease-in-out infinite;
-}
-
-.geometric-shape--1 {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  animation-delay: 0s;
-}
-
-.geometric-shape--2 {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(99, 102, 241, 0.3));
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  animation-delay: -2s;
-  transform: rotate(45deg);
-}
-
-.geometric-shape--3 {
-  width: 65px;
-  height: 65px;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  border-radius: 50%;
-  animation: pulse 4s ease-in-out infinite;
-}
-
-.geometric-shape--4 {
-  width: 35px;
-  height: 35px;
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(139, 92, 246, 0.3));
-  border: 1px solid rgba(236, 72, 153, 0.4);
-  animation-delay: -1.5s;
-}
-
-.geometric-shape--5 {
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(99, 102, 241, 0.2));
-  border: 1px solid rgba(236, 72, 153, 0.3);
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  animation: rotateShape 6s ease-in-out infinite;
-}
-
-.geometric-shape--6 {
-  width: 45px;
-  height: 45px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));
-  border: 1px solid rgba(99, 102, 241, 0.4);
-  border-radius: 50%;
-  animation-delay: -3s;
-}
-
-@keyframes rotateShape {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.1); }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.15); opacity: 0.8; }
-}
-
-.info-block__content {
-  flex: 1;
-  padding-top: 4px;
-}
-
-.info-title {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0 0 8px 0;
-}
-
-.info-metric {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 8px 0;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.info-detail {
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .contact-grid {
-    gap: 60px;
-  }
-}
-
-@media (max-width: 968px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 60px;
-  }
-
-  .contact-visual {
-    order: -1;
-  }
-
-  .info-display {
-    flex-direction: row;
-    gap: 24px;
-  }
-
-  .info-block {
-    flex: 1;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
-
-  .info-block__visual {
-    margin-bottom: 12px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-premium {
-    padding: 80px 20px 40px;
-  }
-
-  .contact-grid {
-    gap: 40px;
-  }
-
-  .hero-premium__title-line {
-    font-size: 2.5rem;
-  }
-
-  .hero-premium__subtitle {
-    font-size: 1rem;
-    margin-bottom: 36px;
-  }
-
-  .contact-form-wrapper {
-    padding: 32px 24px;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .premium-contact-form {
-    gap: 16px;
-  }
-
-  .btn-premium {
-    padding: 16px 32px;
-  }
-
-  .info-display {
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .info-block {
-    flex-direction: row;
-    text-align: left;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-premium__title-line {
-    font-size: 2rem;
-  }
-
-  .contact-form-wrapper {
-    padding: 24px 20px;
-  }
-
-  .form-input {
-    padding: 14px 16px;
-    font-size: 0.9375rem;
-  }
-
-  .btn-premium {
-    padding: 14px 28px;
-    font-size: 0.9375rem;
-  }
-
-  .info-block__visual {
-    width: 60px;
-    height: 60px;
-  }
-
-  .geometric-shape--1 {
-    width: 50px;
-    height: 50px;
-  }
-
-  .geometric-shape--2 {
-    width: 30px;
-    height: 30px;
-  }
-
-  .geometric-shape--3 {
-    width: 50px;
-    height: 50px;
-  }
-
-  .geometric-shape--4 {
-    width: 28px;
-    height: 28px;
-  }
-
-  .geometric-shape--5 {
-    width: 55px;
-    height: 55px;
-  }
-
-  .geometric-shape--6 {
-    width: 35px;
-    height: 35px;
-  }
-
-  .info-metric {
-    font-size: 1.75rem;
-  }
-
-  .info-detail {
-    font-size: 0.875rem;
-  }
-}
-</style>
 {% endblock %}

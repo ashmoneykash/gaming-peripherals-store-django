@@ -1,16 +1,117 @@
-<h1>Register</h1>
+{% extends "base.html" %}
+{% block title %}Register - NexGen{% endblock %}
 
-<form method="POST">
-  {% csrf_token %}
-  <input name="username" placeholder="Username" required>
-  <input name="email" type="email" placeholder="Email" required>
-  <input name="password" type="password" placeholder="Password" required>
-  <input name="mobile" placeholder="Mobile" required>
-  <textarea name="address" placeholder="Address"></textarea>
-  <input name="pincode" placeholder="Pincode">
-  <button type="submit">Register</button>
-</form>
+{% block content %}
+<section class="min-h-[calc(100vh-6rem)] flex items-center justify-center px-4 py-12">
 
-{% if error %}
-  <p style="color:red">{{ error }}</p>
-{% endif %}
+  <!-- Register Card -->
+  <div class="w-full max-w-md bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-10">
+    
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-success/10 border border-success/20 rounded-full mb-6">
+        <span class="w-1.5 h-1.5 bg-success rounded-full animate-pulse"></span>
+        <span class="text-xs font-semibold uppercase tracking-wider text-zinc-300">Join Us</span>
+      </div>
+      <h1 class="text-3xl font-bold text-white mb-2">Create Account</h1>
+      <p class="text-sm text-zinc-400">Sign up to start shopping for premium gaming gear</p>
+    </div>
+
+    <!-- Error Message -->
+    {% if error %}
+    <div class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+      <p class="text-sm text-red-400">{{ error }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Register Form -->
+    <form method="POST" class="space-y-5">
+      {% csrf_token %}
+
+      <!-- Username Field -->
+      <div class="space-y-2">
+        <label for="username" class="block text-sm font-medium text-zinc-300">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          required
+          placeholder="Choose a username"
+          class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-500 outline-none transition-all duration-200 focus:bg-white/[0.07] focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+        >
+      </div>
+
+      <!-- Email Field -->
+      <div class="space-y-2">
+        <label for="email" class="block text-sm font-medium text-zinc-300">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="Enter your email"
+          class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-500 outline-none transition-all duration-200 focus:bg-white/[0.07] focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+        >
+      </div>
+
+      <!-- Password Field -->
+      <div class="space-y-2">
+        <label for="password1" class="block text-sm font-medium text-zinc-300">Password</label>
+        <input
+          type="password"
+          id="password1"
+          name="password1"
+          required
+          placeholder="Create a password"
+          class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-500 outline-none transition-all duration-200 focus:bg-white/[0.07] focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+        >
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="space-y-2">
+        <label for="password2" class="block text-sm font-medium text-zinc-300">Confirm Password</label>
+        <input
+          type="password"
+          id="password2"
+          name="password2"
+          required
+          placeholder="Confirm your password"
+          class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-500 outline-none transition-all duration-200 focus:bg-white/[0.07] focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+        >
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="w-full py-4 mt-2 bg-gradient-to-r from-primary to-purple-500 hover:from-primary-dark hover:to-purple-600 text-white font-semibold rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25">
+        Create Account
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="flex items-center gap-4 my-6">
+      <div class="flex-1 h-px bg-white/10"></div>
+      <span class="text-xs text-zinc-500">or</span>
+      <div class="flex-1 h-px bg-white/10"></div>
+    </div>
+
+    <!-- Login Link -->
+    <div class="text-center">
+      <p class="text-sm text-zinc-400">
+        Already have an account?
+        <a href="{% url 'login' %}" class="text-primary hover:text-purple-400 font-medium transition-colors">Sign In</a>
+      </p>
+    </div>
+
+    <!-- Terms Notice -->
+    <div class="mt-6 pt-6 border-t border-white/5 text-center">
+      <p class="text-xs text-zinc-500 leading-relaxed">
+        By creating an account, you agree to our
+        <a href="#" class="text-zinc-400 hover:text-white transition-colors">Terms of Service</a>
+        and
+        <a href="#" class="text-zinc-400 hover:text-white transition-colors">Privacy Policy</a>
+      </p>
+    </div>
+
+  </div>
+
+</section>
+{% endblock %}

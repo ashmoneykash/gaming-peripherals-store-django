@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from adminapp.models import Order,Product
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
@@ -89,6 +89,27 @@ def products(request):
                 break
 
     return render(request, 'users/products.html', {'items': items})
+
+@login_required(login_url='/users/login/')
+def buy_now(request, product_id):
+    if request.method != "POST":
+        return redirect('products')
+
+    product = get_object_or_404(Product, id=product_id)
+
+    if product.stock <= 0:
+        return redirect('products')
+
+    Order.objects.create(
+        user=request.user,
+        product=product,
+        quantity=1
+    )
+
+    product.stock -= 1
+    product.save()
+
+    return redirect('my_orders')
 
 def place_order(request, pid):
     Order.objects.create(

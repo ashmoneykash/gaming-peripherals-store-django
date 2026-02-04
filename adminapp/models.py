@@ -13,5 +13,9 @@ class Product(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    date = models.DateTimeField(auto_now_add=True)
+    quantity = models.IntegerField(default=1)
+    status = models.CharField(max_length=20, default="Placed")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Order #{self.id}"
