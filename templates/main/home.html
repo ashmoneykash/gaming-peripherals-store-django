@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}NexGen - Elite Gaming Peripherals{% endblock %}
 
+{% load static %}
+
 {% block content %}
 <!-- Hero Section -->
 <section class="min-h-[calc(100vh-6rem)] flex items-center px-4 py-12">
@@ -73,7 +75,11 @@
       <div class="relative hidden lg:block">
         <div class="relative bg-surface/40 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
           <!-- Placeholder for hero image - can be replaced with actual product image -->
-          <div class="aspect-square bg-gradient-to-br from-surface-light to-surface rounded-2xl flex items-center justify-center overflow-hidden">
+          <img
+            src="{% static 'hero-gear.png' %}"
+            alt="Gaming Gear"
+            class="w-full h-full object-cover rounded-2xl"
+            />
             <div class="text-center p-8">
               <div class="w-32 h-32 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
                 <svg class="w-16 h-16 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">

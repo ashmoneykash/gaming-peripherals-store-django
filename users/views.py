@@ -88,10 +88,10 @@ def products(request):
                 item.image_path = path
                 break
 
-    return render(request, 'users/products.html', {'items': items})
+    return render(request, 'users/products.html', {'products': items})
 
 @login_required(login_url='/users/login/')
-def buy_now(request, product_id):
+def buy_product(request, product_id):
     if request.method != "POST":
         return redirect('products')
 
@@ -110,14 +110,6 @@ def buy_now(request, product_id):
     product.save()
 
     return redirect('my_orders')
-
-def place_order(request, pid):
-    Order.objects.create(
-        user_id=request.session['user_id'],
-        product_id=pid,
-        quantity=1
-    )
-    return redirect('/my-orders/')
 
 @login_required(login_url='/users/login/')
 def my_orders(request):
