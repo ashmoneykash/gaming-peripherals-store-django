@@ -17,10 +17,13 @@ def register(request):
     if request.method == "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
-        password = request.POST.get("password")
-        mobile = request.POST.get("mobile")
-        address = request.POST.get("address")
-        pincode = request.POST.get("pincode")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+
+        if password1 != password2:
+            return render(request, "users/register.html", {
+                "error": "Passwords do not match"
+            })
 
         if User.objects.filter(username=username).exists():
             return render(request, "users/register.html", {
@@ -30,16 +33,10 @@ def register(request):
         user = User.objects.create_user(
             username=username,
             email=email,
-            password=password
+            password=password1
         )
 
-        UserProfile.objects.create(
-            user=user,
-            mobile=mobile,
-            address=address,
-            pincode=pincode
-        )
-
+        UserProfile.objects.create(user=user)
         return redirect("login")
 
     return render(request, "users/register.html")
