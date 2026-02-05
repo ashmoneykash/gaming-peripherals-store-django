@@ -16,17 +16,37 @@
         </div>
         
         <!-- Sort Dropdown -->
-        <div class="relative">
-          <select class="appearance-none bg-surface/80 border border-white/10 rounded-xl px-4 py-3 pr-10 text-sm text-zinc-300 outline-none focus:border-primary/50 cursor-pointer">
-            <option>Sort by</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-            <option>Newest First</option>
+        <form method="get" class="relative">
+          <select
+            name="sort"
+            onchange="this.form.submit()"
+            class="appearance-none bg-surface/80 border border-white/10 rounded-xl px-4 py-3 pr-10 text-sm text-zinc-300 outline-none focus:border-primary/50 cursor-pointer">
+
+            <option value="">Sort by</option>
+
+            <option value="price-asc"
+              {% if request.GET.sort == 'price-asc' %}selected{% endif %}>
+              Price: Low to High
+            </option>
+
+            <option value="price-desc"
+              {% if request.GET.sort == 'price-desc' %}selected{% endif %}>
+              Price: High to Low
+            </option>
+
+            <option value="name"
+              {% if request.GET.sort == 'name' %}selected{% endif %}>
+              Name
+            </option>
           </select>
-          <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </div>
+
+  <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 pointer-events-none"
+       fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M19 9l-7 7-7-7"></path>
+  </svg>
+</form>
+
       </div>
     </div>
 

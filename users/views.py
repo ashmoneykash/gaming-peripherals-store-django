@@ -66,7 +66,7 @@ def products(request):
     items = Product.objects.all()
 
     # ── Sorting (ALWAYS before looping)
-    sort = request.GET.get('sort')
+    sort = request.GET.get('sort','')
 
     if sort == 'name':
         items = items.order_by('name')
