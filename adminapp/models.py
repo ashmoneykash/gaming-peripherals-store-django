@@ -17,5 +17,9 @@ class Order(models.Model):
     status = models.CharField(max_length=20, default="Placed")
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def total_price(self):
+        return self.product.price * self.quantity
+
     def __str__(self):
         return f"Order #{self.id}"
