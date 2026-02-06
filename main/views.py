@@ -9,7 +9,7 @@ def collections(request):
     return render(request,'collections.html')
 
 def about(request):
-    return render(request,'about.html')
+    return render(request,'main/about.html')
 
 def contact(request):
     if request.method == "POST":

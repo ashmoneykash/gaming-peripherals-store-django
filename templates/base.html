@@ -458,6 +458,7 @@
                 <div class="hidden md:flex items-center gap-8">
                     <a href="{% url 'home' %}" class="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Home</a>
                     <a href="{% url 'products' %}" class="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Products</a>
+                    <a href="{% url 'about' %}" class="text-sm text-zinc-400 hover:text-white transition-colors duration-200">About</a>
                     <a href="{% url 'contact' %}" class="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Contact</a>
                     
                     {% if user.is_authenticated %}
@@ -482,6 +483,7 @@
                 <div class="flex flex-col gap-3">
                     <a href="{% url 'home' %}" class="text-sm text-zinc-400 hover:text-white py-2 transition-colors">Home</a>
                     <a href="{% url 'products' %}" class="text-sm text-zinc-400 hover:text-white py-2 transition-colors">Products</a>
+                    <a href="{% url 'about' %}" class="text-sm text-zinc-400 hover:text-white py-2 transition-colors">About</a>
                     <a href="{% url 'contact' %}" class="text-sm text-zinc-400 hover:text-white py-2 transition-colors">Contact</a>
                     {% if user.is_authenticated %}
                         <a href="{% url 'my_orders' %}" class="text-sm text-zinc-400 hover:text-white py-2 transition-colors">My Orders</a>
