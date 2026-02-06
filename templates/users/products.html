@@ -7,7 +7,7 @@
   <div class="max-w-7xl mx-auto">
 
     <!-- Page Header -->
-    <div class="mb-10">
+    <div class="mb-10 reveal-up">
       <span class="inline-block px-4 py-1.5 bg-primary/10 border border-primary/20 rounded-full text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-4">Collection</span>
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
@@ -54,7 +54,7 @@
     <!-- Products Grid -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for product in products %}
-      <div class="group bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300">
+      <div class="group bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 reveal-product" data-index="{{ forloop.counter }}">
         
         <!-- Product Image -->
         <div class="relative aspect-[4/3] bg-surface-light overflow-hidden">
@@ -114,7 +114,7 @@
 
     {% else %}
     <!-- Empty State -->
-    <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-12 text-center">
+    <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-12 text-center reveal-up">
       <div class="w-20 h-20 mx-auto mb-6 bg-surface-light rounded-2xl flex items-center justify-center">
         <svg class="w-10 h-10 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
@@ -127,4 +127,59 @@
 
   </div>
 </section>
+
+<!-- Reveal Animation Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Intersection Observer for reveal animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observe header
+  document.querySelectorAll('.reveal-up').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Observe products with staggered delay
+  document.querySelectorAll('.reveal-product').forEach((el, index) => {
+    // Add staggered delay based on index
+    el.style.transitionDelay = `${index * 0.1}s`;
+    observer.observe(el);
+  });
+});
+</script>
+
+<style>
+/* Reveal Animations */
+.reveal-up,
+.reveal-product {
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal-up {
+  transform: translateY(30px);
+}
+
+.reveal-product {
+  transform: translateY(30px) scale(0.95);
+}
+
+.reveal-up.revealed,
+.reveal-product.revealed {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+</style>
 {% endblock %}
