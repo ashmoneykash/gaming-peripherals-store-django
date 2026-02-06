@@ -10,7 +10,7 @@
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       
       <!-- Left Content -->
-      <div class="space-y-8">
+      <div class="space-y-8 reveal-left">
         <!-- Badge -->
         <div class="inline-flex items-center gap-3 px-4 py-2 bg-surface/80 border border-white/10 rounded-full">
           <div class="flex items-center gap-1">
@@ -72,7 +72,7 @@
       </div>
 
       <!-- Right Image -->
-      <div class="relative hidden lg:block">
+      <div class="relative hidden lg:block reveal-right">
         <div class="relative bg-surface/40 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
           <!-- Placeholder for hero image - can be replaced with actual product image -->
           <img
@@ -104,7 +104,7 @@
   <div class="max-w-7xl mx-auto">
     
     <!-- Section Header -->
-    <div class="text-center mb-16">
+    <div class="text-center mb-16 reveal-up">
       <span class="inline-block px-4 py-1.5 bg-primary/10 border border-primary/20 rounded-full text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-4">Why Choose Us</span>
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Built for Champions</h2>
       <p class="text-zinc-400 max-w-xl mx-auto">Every product is engineered with pro-level performance in mind</p>
@@ -113,7 +113,7 @@
     <!-- Features Grid -->
     <div class="grid md:grid-cols-3 gap-6">
       
-      <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group">
+      <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group reveal-up" style="transition-delay: 0.1s;">
         <div class="w-14 h-14 bg-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
           <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -123,7 +123,7 @@
         <p class="text-zinc-400 leading-relaxed">Sub-millisecond response times that give you the competitive edge in every match.</p>
       </div>
 
-      <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group">
+      <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group reveal-up" style="transition-delay: 0.2s;">
         <div class="w-14 h-14 bg-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
           <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -133,7 +133,7 @@
         <p class="text-zinc-400 leading-relaxed">Used by professional esports athletes in major tournaments worldwide.</p>
       </div>
 
-      <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group">
+      <div class="bg-surface/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group reveal-up" style="transition-delay: 0.3s;">
         <div class="w-14 h-14 bg-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
           <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
@@ -150,7 +150,7 @@
 <!-- CTA Section -->
 <section class="px-4 py-20">
   <div class="max-w-4xl mx-auto">
-    <div class="bg-gradient-to-br from-primary/20 via-surface to-purple-500/20 border border-white/10 rounded-3xl p-12 text-center relative overflow-hidden">
+    <div class="bg-gradient-to-br from-primary/20 via-surface to-purple-500/20 border border-white/10 rounded-3xl p-12 text-center relative overflow-hidden reveal-up">
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.15),transparent_70%)]"></div>
       <div class="relative z-10">
         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Dominate?</h2>
@@ -165,4 +165,58 @@
     </div>
   </div>
 </section>
+
+<!-- Reveal Animation Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Intersection Observer for reveal animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all elements with reveal classes
+  document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => {
+    observer.observe(el);
+  });
+});
+</script>
+
+<style>
+/* Reveal Animations */
+.reveal-up,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-up {
+  transform: translateY(30px);
+}
+
+.reveal-left {
+  transform: translateX(-30px);
+}
+
+.reveal-right {
+  transform: translateX(30px);
+}
+
+.reveal-up.revealed,
+.reveal-left.revealed,
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+</style>
 {% endblock %}
