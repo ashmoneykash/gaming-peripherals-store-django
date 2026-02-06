@@ -184,14 +184,7 @@ python manage.py createsuperuser
 
 Follow the prompts to create an admin account.
 
-### Step 7: Load Sample Data (Optional)
-
-```bash
-# If you have fixtures
-python manage.py loaddata products.json
-```
-
-### Step 8: Start Development Server
+### Step 7: Start Development Server
 
 ```bash
 python manage.py runserver
@@ -271,24 +264,6 @@ def register(request):
 - ✅ No database resets required
 - ✅ Production-safe implementation
 
----
-
-## 📸 Screenshots
-
-### Home Page
-*Modern dark-themed landing page with featured products*
-
-### Product Catalog
-*Browse gaming peripherals with real-time stock information*
-
-### Order History
-*Track your purchases and order status*
-
-### Admin Dashboard
-*Comprehensive backend management*
-
----
-
 ## 🧠 Learning Outcomes
 
 This project helped develop understanding of:
@@ -347,7 +322,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - GitHub: [@ashmoneykash](https://github.com/ashmoneykash)
 - LinkedIn: [ashmoneykash](https://linkedin.com/in/ashmoneykash)
-- Email: ayushsalaria2006@gmail.com
+- Email: ayushsalaria321@gmail.com
 
 ---
 
@@ -369,5 +344,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <div align="center">
-Made with ❤️ by Ayush | 2026
+Made with ♥ by Ayush | 2026
 </div>
