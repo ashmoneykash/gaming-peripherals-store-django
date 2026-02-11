@@ -427,6 +427,225 @@
             transform: translateY(-4px);
             box-shadow: 0 20px 40px -15px rgba(139, 92, 246, 0.15);
         }
+        
+        /* ═══════════════════════════════════════════════════════
+           USER BADGE & POPUP
+           ═══════════════════════════════════════════════════════ */
+        
+        /* User Badge - Fixed Top Right */
+        .user-badge {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            background: rgba(20, 20, 25, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .user-badge:hover {
+            background: rgba(20, 20, 25, 0.95);
+            border-color: rgba(139, 92, 246, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.2);
+        }
+        
+        .user-badge__status {
+            width: 8px;
+            height: 8px;
+            background: #22C55E;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .user-badge__username {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FAFAFA;
+            letter-spacing: 0.01em;
+        }
+        
+        .user-badge__icon {
+            width: 18px;
+            height: 18px;
+            color: rgba(255, 255, 255, 0.6);
+            transition: transform 0.3s;
+        }
+        
+        .user-badge:hover .user-badge__icon {
+            transform: rotate(180deg);
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+            }
+        }
+        
+        /* User Popup Card */
+        .user-popup {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9998;
+            width: 280px;
+            background: rgba(20, 20, 25, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .user-popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        
+        /* Popup Header (Draggable) */
+        .user-popup__header {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: move;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .user-popup__header:active {
+            cursor: grabbing;
+        }
+        
+        .user-popup__title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FAFAFA;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .user-popup__drag-icon {
+            width: 20px;
+            height: 20px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .user-popup__close {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        
+        .user-popup__close:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Popup Body */
+        .user-popup__body {
+            padding: 16px;
+        }
+        
+        .user-popup__info {
+            margin-bottom: 16px;
+        }
+        
+        .user-popup__username-display {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FAFAFA;
+            margin-bottom: 4px;
+        }
+        
+        .user-popup__email {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .user-popup__divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            margin: 16px 0;
+        }
+        
+        .user-popup__links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .user-popup__link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .user-popup__link:hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: #FAFAFA;
+        }
+        
+        .user-popup__link-icon {
+            width: 16px;
+            height: 16px;
+            color: rgba(139, 92, 246, 0.8);
+        }
+        
+        .user-popup__logout {
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+
+            /* Used to center the logout button */
+            
+            display: flex;
+            justify-content: center;   
+            align-items: center;
+        }
+        
+        .user-popup__logout:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
     </style>
     
     {% block extra_css %}{% endblock %}
@@ -497,6 +716,65 @@
         </div>
     </nav>
     
+    <!-- User Badge (Only shown when logged in and NOT on login/register pages) -->
+    {% if user.is_authenticated and request.resolver_match.url_name not in 'login,register' %}
+    <div class="user-badge" id="userBadge">
+        <div class="user-badge__status"></div>
+        <span class="user-badge__username">{{ user.username }}</span>
+        <svg class="user-badge__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </div>
+    
+    <!-- User Popup Card -->
+    <div class="user-popup" id="userPopup">
+        <div class="user-popup__header" id="popupHeader">
+            <div class="user-popup__title">
+                <svg class="user-popup__drag-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                </svg>
+                Account
+            </div>
+            <div class="user-popup__close" id="closePopup">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="user-popup__body">
+            <div class="user-popup__info">
+                <div class="user-popup__username-display">{{ user.username }}</div>
+                <div class="user-popup__email">{{ user.email|default:"No email set" }}</div>
+            </div>
+            <div class="user-popup__divider"></div>
+            <div class="user-popup__links">
+                <a href="{% url 'my_orders' %}" class="user-popup__link">
+                    <svg class="user-popup__link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    My Orders
+                </a>
+                <a href="{% url 'home' %}" class="user-popup__link">
+                    <svg class="user-popup__link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    Home
+                </a>
+                <a href="{% url 'products' %}" class="user-popup__link">
+                    <svg class="user-popup__link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    </svg>
+                    Products
+                </a>
+            </div>
+            <div class="user-popup__divider"></div>
+            <a href="{% url 'logout' %}" class="user-popup__logout">
+                Logout
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    
     <!-- Main Content -->
     <main class="relative z-10 pt-24">
         {% block content %}{% endblock %}
@@ -523,6 +801,97 @@
             mobileMenu.classList.toggle('hidden');
         });
     </script>
+    
+    <!-- User Badge & Popup Script -->
+    {% if user.is_authenticated and request.resolver_match.url_name not in 'login,register' %}
+    <script>
+        // User Badge Toggle
+        const userBadge = document.getElementById('userBadge');
+        const userPopup = document.getElementById('userPopup');
+        const closePopup = document.getElementById('closePopup');
+        
+        // Toggle popup on badge click
+        userBadge.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userPopup.classList.toggle('active');
+        });
+        
+        // Close popup on close button
+        closePopup.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userPopup.classList.remove('active');
+        });
+        
+        // Close popup when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!userPopup.contains(e.target) && !userBadge.contains(e.target)) {
+                userPopup.classList.remove('active');
+            }
+        });
+        
+        // Draggable Popup Logic
+        const popupHeader = document.getElementById('popupHeader');
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+        
+        popupHeader.addEventListener('mousedown', dragStart);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', dragEnd);
+        
+        // Touch events for mobile
+        popupHeader.addEventListener('touchstart', dragStart);
+        document.addEventListener('touchmove', drag);
+        document.addEventListener('touchend', dragEnd);
+        
+        function dragStart(e) {
+            if (e.type === 'touchstart') {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+            }
+            
+            if (e.target === popupHeader || popupHeader.contains(e.target)) {
+                isDragging = true;
+            }
+        }
+        
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                
+                if (e.type === 'touchmove') {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+                
+                xOffset = currentX;
+                yOffset = currentY;
+                
+                setTranslate(currentX, currentY, userPopup);
+            }
+        }
+        
+        function dragEnd(e) {
+            initialX = currentX;
+            initialY = currentY;
+            isDragging = false;
+        }
+        
+        function setTranslate(xPos, yPos, el) {
+            el.style.transform = `translate(${xPos}px, ${yPos}px) scale(1)`;
+        }
+    </script>
+    {% endif %}
     
     {% block extra_js %}{% endblock %}
 </body>
