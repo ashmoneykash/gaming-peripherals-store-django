@@ -4,6 +4,7 @@ from adminapp.models import Order,Product
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from .models import UserProfile
+import pyttsx3 as pt
 
 IMAGE_MAP = {
     'mousepad': 'products/mousepad.png',
@@ -54,6 +55,9 @@ def login(request):
 
         if user is not None:
             django_login(request, user)
+
+            speak(f"Welcome back {user.username}") # Speak functionality using pysttx
+            
             return redirect("products")
         else:
             return render(request, "users/login.html", {
@@ -106,6 +110,8 @@ def buy_product(request, product_id):
     product.stock -= 1
     product.save()
 
+    speak(f"{product.name} added to your orders successfully.")
+
     return redirect('my_orders')
 
 @login_required(login_url='/users/login/')
@@ -116,3 +122,10 @@ def my_orders(request):
 def logout(request):
     django_logout(request)
     return redirect("home")
+
+def speak(text):    # Speak function using pyttsx package 
+    engine = pt.init()
+    engine.setProperty('rate', 165)
+    engine.setProperty('volume', 1.0)
+    engine.say(text)
+    engine.runAndWait()
