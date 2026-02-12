@@ -19,7 +19,6 @@ This project demonstrates real-world full-stack development concepts including u
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Authentication Fix](#-authentication-fix-resolved)
-- [Screenshots](#-screenshots)
 - [Learning Outcomes](#-learning-outcomes)
 - [Future Enhancements](#-future-enhancements)
 - [Contributing](#-contributing)
