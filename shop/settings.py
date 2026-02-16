@@ -77,12 +77,12 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'shopdb',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'nexgendb',
+        'USER': 'postgres',
         'PASSWORD': 'ashmoneykash',
         'HOST': 'localhost',
-        'PORT': '3308',
+        'PORT': '5432',
     }
 }
 
