@@ -78,11 +78,11 @@ def products(request):
     # ── Attach image paths (presentation logic only)
     for item in items:
         name = item.name.lower()
-        item.image_path = 'products/keyboard.png'  # default fallback
+        item.image_path = 'products/keyboard.png'
 
-        for keyword, path in IMAGE_MAP.items():
+        for keyword in sorted(IMAGE_MAP.keys(), key=len, reverse=True):
             if keyword in name:
-                item.image_path = path
+                item.image_path = IMAGE_MAP[keyword]
                 break
 
     return render(request, 'users/products.html', {'products': items})
