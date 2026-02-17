@@ -26,7 +26,7 @@ def seed_products(apps, schema_editor):
             "stock": 12,
         },
         {
-            "name": "NexGen Control Master Gamepad",
+            "name": "NexGen Ultra Pulse Controller",
             "description": "Precision controller with haptic feedback and ultra-responsive triggers.",
             "price": 4999,
             "stock": 18,
